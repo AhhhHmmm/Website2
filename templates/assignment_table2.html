@@ -1,0 +1,57 @@
+{% extends "post_login_layout.html" %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('.static', filename='assignmentstyle.css')}}">
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+<div class="container table-container">
+  <h2>Assignment Specific View</h2>
+  <p>The following shows the summary view of how students in a block did in each lesson.</p>           
+  <table class="table table-condensed table-hover">
+    <thead>
+      <tr class="success">
+        <th>Name</th>
+        <th>Attempted</th>
+        <th>Correctness</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for user in data.user_data %}
+      <tr>
+        <td><a href="/view_user_lesson/{{ data.lesson_data.lesson_id }}/{{ user.user_id }}">{{ user.first_name + ' ' + user.last_name }}</a></td>
+        <td>{{ user.attempted }} of {{ data.lesson_data.num_parts }}</td>
+        <td>{{ user.correct }} of {{ data.lesson_data.num_parts }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+<script type="text/html" id="part_template">
+	<div class="panel panel-primary part_panel" id="q1_part1_panel">
+		<div class="panel-body">
+	 		<div class="form-group">
+	 			<label for="part_letter">Part Letter: </label>
+				<input type="text" class="form-control" name="part_letter">
+	 			<label for="part_html">Part HTML: </label>
+				<textarea class="form-control" name="part_html"></textarea>
+	 			<label for="part_answer">Part Answer: </label>
+				<input type="text" class="form-control" name="part_answer">
+			</div>
+		</div>
+	</div>
+</script>
+<script src="{{url_for('.static', filename='assignment_form.js')}}"></script>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "post_login_layout.html" %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('.static', filename='assignmentstyle.css')}}">
+{% endblock %}
+
+{% block content %}
+	{{ super() }}
+	<form action="" method="POST">
+	<div class="container theme-showcase col-sm-6 col-sm-offset-3" role="main">
+ 	<div class="panel panel-primary question_panel">
+ 		<div class="panel-heading">
+			<h3 class="panel-title">Lesson Selection</h3>
+		</div>
+		<div class="panel-body">
+		<label for="subject">Subject</label>
+		<select id="subject" class="form-control" name="subject">
+			<option value=" "> </option>
+			{% for subject in subjects %}
+			<option value="{{ subject.id }}">{{ subject.title }}</option>
+			{% endfor %}
+		</select>
+		<label for="subject">Unit</label>
+		<select id="unit" class="form-control" name="unit">
+			<option value=" "> </option>
+			{% for unit in units %}
+			<option value="{{ unit.id }}">U{{ unit.number }}: {{ unit.title }}</option>
+			{% endfor %}
+		</select>
+		<label for="subject">Lesson</label>
+		<select id="lesson" class="form-control" name="lesson">
+			<option value=" "> </option>
+			{% for lesson in lessons %}
+			<option value="{{ lesson.id }}">Lesson {{ lesson.number }}: {{ lesson.title }}</option>
+			{% endfor %}
+		</select>
+		</div>
+	</div>
+	</div>
+
+ 	<div class="container theme-showcase col-sm-6 col-sm-offset-3" role="main">
+ 	<div class="panel panel-primary question_panel">
+		<div class="panel-heading">
+			<h3 class="panel-title">Question</h3>
+		</div>
+		<div class="panel-body">
+ 			<label for="question_number">Question Number: </label>
+			<input type="text" class="form-control" name="question_number">
+ 			<label for="question_html">Question HTML: </label>
+			<textarea class="form-control" name="question_html"></textarea>
+			<br/>
+
+			<button type="button" class="btn btn-primary" id="add_part">Add Part</button>
+		</div>
+	</div>
+	<input type="submit" value="Submit" class="btn btn-primary submit_button">
+	</div>
+
+	</form>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+<script type="text/html" id="part_template">
+	<div class="panel panel-primary part_panel" id="q1_part1_panel">
+		<div class="panel-body">
+	 		<div class="form-group">
+	 			<label for="part_letter">Part Letter: </label>
+				<input type="text" class="form-control" name="part_letter">
+	 			<label for="part_html">Part HTML: </label>
+				<textarea class="form-control" name="part_html"></textarea>
+	 			<label for="part_answer">Part Answer: </label>
+				<input type="text" class="form-control" name="part_answer">
+			</div>
+		</div>
+	</div>
+</script>
+<script src="{{url_for('.static', filename='assignment_form.js')}}"></script>
+{% endblock %}

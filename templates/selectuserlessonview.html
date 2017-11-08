@@ -1,0 +1,41 @@
+{% extends "post_login_layout.html" %}
+
+{% block content %}
+	{{ super() }}
+ 	<form method='POST' action="">
+ 	<div class="container theme-showcase col-sm-6 col-sm-offset-3" role="main">
+ 	<div class="panel panel-primary question_panel">
+ 		<div class="panel-heading">
+			<h3 class="panel-title">Lesson/User Selection</h3>
+		</div>
+		<div class="panel-body">
+		 	{{ form.csrf_token }}
+
+		 	{{ form.subject.label }}
+		    {{ form.subject(onchange='getBlocksAndUnits()') }}
+
+		    {{ form.unit.label }}
+		    {{ form.unit }}
+
+		    {{ form.lesson.label }}
+		    {{ form.lesson }}
+
+		    {{ form.block.label }}
+		    {{ form.block(onchange='getUsers()') }}
+
+		    {{ form.user.label }}
+		    {{ form.user }}
+		    
+		<br/>
+    	<input type="submit" value="Submit" class="btn btn-primary submit_button">
+    	</div>
+	</div>
+	</div>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{url_for('.static', filename='getStuff.js')}}"></script>
+<script src="{{url_for('.static', filename='formSetup.js')}}"></script>
+{% endblock %}

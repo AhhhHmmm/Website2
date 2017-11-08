@@ -1,0 +1,67 @@
+{% extends "post_login_layout.html" %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('.static', filename='assignmentstyle.css')}}">
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+<div class="container table-container">
+  <h3>User: <span >{{ data.user_data.first_name + ' ' + data.user_data.last_name}}</span></h3>
+  <h3>Lesson: <span>{{ 'U{} L{} - {}'.format(data.lesson_data.unit_number, data.lesson_data.lesson_number, data.lesson_data.lesson_title) }}</span></h3>
+  <p>The following shows the specific info of how a single user did on an assignment.</p>         
+  <table class="table table-condensed table-hover">
+    <thead>
+      <tr class="success">
+        <th>Part</th>
+        <th>Most Recent Try</th>
+        <th>Tries</th>
+        <th>Correct</th>
+      </tr>
+    </thead>
+  <tbody>
+  {% set question_num = {'num' : 0} %}
+  {% for response in data.response_data %}
+  {% if question_num.num != response.question %}
+  {% if question_num.update({'num' : response.question}) %}{% endif %}
+    <tr>
+      <td colspan="4" class="info">Question {{ response.question }}</td>
+    </tr>
+  {% endif %}
+    <tr>
+      <td>({{ response.part }})</td>
+      <td>{{ response.last_try_date }}</td>
+      <td>{{ response.tries }}</td>
+      <td>{{ response.correct|safe }}</td>
+    </tr>
+  {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+{{ super() }}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+<script type="text/html" id="part_template">
+	<div class="panel panel-primary part_panel" id="q1_part1_panel">
+		<div class="panel-body">
+	 		<div class="form-group">
+	 			<label for="part_letter">Part Letter: </label>
+				<input type="text" class="form-control" name="part_letter">
+	 			<label for="part_html">Part HTML: </label>
+				<textarea class="form-control" name="part_html"></textarea>
+	 			<label for="part_answer">Part Answer: </label>
+				<input type="text" class="form-control" name="part_answer">
+			</div>
+		</div>
+	</div>
+</script>
+<script src="{{url_for('.static', filename='assignment_form.js')}}"></script>
+{% endblock %}

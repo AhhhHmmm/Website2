@@ -1,0 +1,6 @@
+{% extends "bootstrap/base.html" %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{url_for('.static', filename='bootstrap-3.3.7-dist/css/bootstrap.min.css')}}"></script>
+{% endblock %}

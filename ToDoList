@@ -1,0 +1,33 @@
+- Sign Up screen
+	- Update selectors so that only proper blocks can be selected
+	- Add Verification code. (COMPLETED)
+	
+- Data Views:
+	- Specific User and Assignment
+		- (COMPLETED)
+		- Shows part details (like number of tries and correctness of each part)
+
+	- Specific Assignment and Class
+		- (COMPLETED)
+		- Gives summary data for each user.
+			- In summary data each user is clickable. (links to Specific User and Assignment)
+
+	- Specific User
+		- (COMPLETED)
+		- Gives summary data for each assignment.
+			- In summary data each assignment is clickable. (links to Specific User and Assignment)
+		- Allows users to see their data
+
+- Fix headers for all screens if admin is logged in!
+	- Needs to be completed.
+
+- Adding Lessons more Conveniently 
+	- Temp fix, use admin screen
+- Add parts to an already existing question that has parts
+
+
+- Uploading PDFs for lessons
+- Exporting data as csv
+- Emailing users
+- Google Calendar?
+- Make it easier for admin to view lessons (COMPLETED)

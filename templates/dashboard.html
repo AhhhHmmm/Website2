@@ -1,0 +1,45 @@
+{% extends "post_login_layout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+{% if subject_name == 'Algebra 2 Common Core' %}
+	{% set subject_abbrev = 'alg2' %}
+{% elif subject_name == 'AP Computer Science Principles' %}
+	{% set subject_abbrev = 'apcsp' %}
+{% else %}
+	{% set subject_abbrev = subject_name %}
+{% endif %}
+
+<div class="container theme-showcase" role="main">
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h2>Welcome {{ current_user.first_name }},</h2>
+	</div>
+	<div class="panel-body">
+		{% for unit in units %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">Unit {{ unit.number }}: {{unit.title}}</h4>
+			</div>
+				<table class="table table-hover">
+				<tr><th>Lesson Number</th><th>Lesson Title</th></tr>
+				{% for lesson in unit.lessons.all() %}
+				{% if lesson.active %}
+				<tr><td>{{ lesson.number }}</td><td><a href="assignment/{{ subject_abbrev }}/u{{ unit.number }}/l{{ lesson.number }}">{{ lesson.title }}</a></td></tr>
+				{% else %}
+				<tr><td>{{ lesson.number }}</td><td>{{ lesson.title }} </td></tr>
+				{% endif %}
+				{% endfor %}
+				</table>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+</div>
+{% endblock %}

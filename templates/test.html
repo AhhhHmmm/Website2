@@ -1,0 +1,92 @@
+{% extends "post_login_layout.html" %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('.static', filename='assignmentstyle.css')}}">
+{% endblock %}
+
+{% block head %}
+{{ super() }}
+<script type="text/javascript">
+	function populateBlocks(s1,s2) {
+		var s1 = document.getElementById(s1);
+		var s2 = document.getElementById(s2);
+		s2.innerHTML = "<option value=' '> </option>";
+		if (s1.value) {
+			var subject = s1.value;
+			{% set blocks = Block.query.all() %}
+			{% for block in blocks %}
+			if ("{{ block.subject.title }}" == subject) {
+				var pair = [{{ block.number }}, {{ block.number }}];
+				var newOption = document.createElement("option");
+				newOption.value = pair[0];
+				newOption.innerHTML = pair[1];
+				s2.options.add(newOption);
+			}
+			{% endfor %}
+		}
+	}
+
+	function populateUsers(s1,s2) {
+		var s1 = document.getElementById(s1);
+		var s2 = document.getElementById(s2);
+		s2.innerHTML = "<option value=' '> </option>";
+		if (s1.value) {
+			var block= s1.value;
+			{% set users = User.query.all() %}
+			{% for user in users %}
+			console.log("{{ user.block.number }}");
+			console.log(block);
+			if ("{{ user.block.number }}" == block) {
+				var pair = [{{ user.id }}, "{{ user.first_name + ' ' + user.last_name }}"];
+				var newOption = document.createElement("option");
+				newOption.value = pair[0];
+				newOption.innerHTML = pair[1];
+				s2.options.add(newOption);
+			}
+			{% endfor %}
+		}
+	}
+</script>
+
+{% endblock %}
+
+{% block content %}
+	{{ super() }}
+ 	{% set subjects = Subject.query.all() %}
+ 	<div class="container theme-showcase col-sm-6 col-sm-offset-3" role="main">
+ 	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Test</h3>
+		</div>
+	<div class="panel-body">
+	 	<form action="" method="POST">
+	 		<div class="form-group">
+	 			<label for="subject">Subject</label>
+				<select id="subject" class="form-control" name="Subject" onchange="populateBlocks(this.id, 'block')">
+				<option value=" "> </option>
+				{% for subject in subjects %}
+				<option value="{{ subject.title }}">{{ subject.title }}</option>
+				{% endfor %}
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="block">Block</label>
+				<select id="block" class="form-control" name="Block" onchange="populateUsers(this.id, 'user')">
+				<option value=" "> </option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="user">User</label>
+				<select id="user" class="form-control" name="User">
+				<option value=" "> </option>
+				</select>
+			</div>
+			<div class="form-group">
+				<input type="submit" name="Submit" class="btn btn-primary submit_button" value="Submit">
+			</div>
+		</form>
+	</div>
+	</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends "post_login_layout.html" %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('.static', filename='assignmentstyle.css')}}">
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+<div class="container table-container">
+  <h2>User/Assignment Specific View</h2>
+  <p>The following shows the specific info of how a single user did on an assignment.</p>
+  <table class="table table-condensed table-hover">
+    <thead>
+      <tr class="success">
+        <th>Part</th>
+        <th>Most Recent Try</th>
+        <th>Tries</th>
+        <th>Correct</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr class="info">
+        <td colspan="4">Question 1</td>
+     </tr>
+      <tr>
+        <td>(a)</td>
+        <td>10/2/2017</td>
+        <td>5</td>
+        <td><span class="answer_reaction glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+      </tr>
+      <tr>
+        <td>(b)</td>
+        <td>10/2/2017</td>
+        <td>5</td>
+        <td><span class="answer_reaction glyphicon glyphicon-ok" aria-hidden="true"></span></td>
+      </tr>
+      <tr>
+        <td>(c)</td>
+        <td>10/2/2017</td>
+        <td>5</td>
+        <td><span class="answer_reaction glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+      </tr>
+     <tr class="info">
+        <td colspan="4">Question 2</td>
+     </tr>
+      <tr>
+        <td>(a)</td>
+        <td>10/2/2017</td>
+        <td>5</td>
+        <td><span class="answer_reaction glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+      </tr>
+      <tr>
+        <td>(b)</td>
+        <td>10/2/2017</td>
+        <td>5</td>
+        <td><span class="answer_reaction glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+      </tr>
+      <tr>
+        <td>(c)</td>
+        <td>10/2/2017</td>
+        <td>5</td>
+        <td><span class="answer_reaction glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<br/>
+<br/>
+
+<div class="container table-container">
+  <h2>Assignment Specific View</h2>
+  <p>The following shows the summary view of how students in a block did in each lesson.</p>           
+  <table class="table table-condensed table-hover">
+    <thead>
+      <tr class="success">
+        <th>Name</th>
+        <th>Attempted</th>
+        <th>Correctness</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr class="info">
+        <td colspan="3">Lesson 1</td>
+     </tr>
+      <tr>
+        <td><a href="">Skye Skye</a></td>
+        <td>5 of 10</td>
+        <td>3 of 10</td>
+      </tr>
+      <tr>
+        <td><a href="">Test User</a></td>
+        <td>5 of 10</td>
+        <td>3 of 10</td>
+      </tr>
+      <tr>
+        <td><a href="">Blah Halb</a></td>
+        <td>5 of 10</td>
+        <td>3 of 10</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
+<script type="text/html" id="part_template">
+	<div class="panel panel-primary part_panel" id="q1_part1_panel">
+		<div class="panel-body">
+	 		<div class="form-group">
+	 			<label for="part_letter">Part Letter: </label>
+				<input type="text" class="form-control" name="part_letter">
+	 			<label for="part_html">Part HTML: </label>
+				<textarea class="form-control" name="part_html"></textarea>
+	 			<label for="part_answer">Part Answer: </label>
+				<input type="text" class="form-control" name="part_answer">
+			</div>
+		</div>
+	</div>
+</script>
+<script src="{{url_for('.static', filename='assignment_form.js')}}"></script>
+{% endblock %}
